@@ -15,6 +15,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableHighlight,
   useColorScheme,
   View,
 } from 'react-native';
@@ -26,6 +27,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import RazorpayCheckout from 'react-native-razorpay';
 
 const Section: React.FC<{
   title: string;
@@ -73,7 +75,35 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
+          <View>
+            <TouchableHighlight
+              onPress={() => {
+                var options = {
+                  description: 'Credits towards consultation',
+                  image: 'https://i.imgur.com/3g7nmJC.png',
+                  currency: 'INR',
+                  key: 'rzp_test_Ye85IRnxamQLwk', // Your api key
+                  amount: '5000',
+                  name: 'foo',
+                  prefill: {
+                    email: 'void@razorpay.com',
+                    contact: '9191919191',
+                    name: 'Razorpay Software',
+                  },
+                  theme: {color: '#F37254'},
+                };
+                RazorpayCheckout.open(options)
+                  .then(data => {
+                    // handle success
+                    alert(`Success: ${data.razorpay_payment_id}`);
+                  })
+                  .catch(error => {
+                    // handle failure
+                    alert(`Error: ${error.code} | ${error.description}`);
+                  });
+              }}></TouchableHighlight>
+          </View>
+          {/* <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
           </Section>
@@ -85,8 +115,8 @@ const App = () => {
           </Section>
           <Section title="Learn More">
             Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          </Section> */}
+          {/* <LearnMoreLinks /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -113,4 +143,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-// export {default} from './storybook'; 
+// export {default} from './storybook';
