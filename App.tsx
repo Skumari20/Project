@@ -73,6 +73,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Text style={styles.highlight}>Custom Font Link</Text>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
@@ -109,8 +110,9 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+    fontFamily: 'Roboto-Italic',
   },
 });
 
 export default App;
-// export {default} from './storybook'; 
+// export {default} from './storybook';
